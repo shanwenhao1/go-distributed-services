@@ -3,6 +3,24 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "0Hs4LhakP9XchfZY7b1G3q3uvvQ=",
+			"path": "github.com/AsynkronIT/goconsole",
+			"revision": "bfa12eebf7161a928e20d11a627cc689e99e2e50",
+			"revisionTime": "2016-05-04T19:26:49Z"
+		},
+		{
+			"checksumSHA1": "tzQJQ5aILqVYADcTHWvgoGS2fIs=",
+			"path": "github.com/AsynkronIT/protoactor-go",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "tejWjZKUFJdFx0XNQ7D3vrevTxk=",
+			"path": "github.com/AsynkronIT/protoactor-go/actor",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
 			"checksumSHA1": "IvVw9r5Sjnsxvgv0ekjcEQ71+zo=",
 			"path": "github.com/alecthomas/log4go",
 			"revision": "d146e6b86faab5f7e4d135cc63b749d74bf0d4a6",
