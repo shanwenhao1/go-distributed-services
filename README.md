@@ -31,10 +31,13 @@ Consumer.
 - [大型网站系统架构演化](http://www.cnblogs.com/leefreeman/p/3993449.html)
 
 ### 目前考量的
-- [Proto Actor模型框架](https://github.com/AsynkronIT/protoactor-go): 
+- [Proto Actor模型框架](https://github.com/AsynkronIT/protoactor-go): 最好在linux下使用, 
+[使用文档说明](https://github.com/AsynkronIT/protoactor-go)
     - Actor模型说明:
         - proto actor运用的协议是google的rpc协议, [gRPC文档](http://doc.oschina.net/grpc?t=60133), 
             - [go Protocol google安装](https://blog.csdn.net/u010230794/article/details/78606021)
+                - .exe放在GOPATH\bin下面
+                - include下的google文件夹放在GOPATH\src下面
             - [官方安装文档](https://github.com/golang/protobuf)
         - 适用于高并发分布式服务, 每个线程都是一个actor, actor之间并不共享任何内存.因此不必使用分布式锁.
         - Actor模型=数据+行为+消息: Actor模型内部的状态由自己的行为维护,外部线程不能直接调用对象的行为,

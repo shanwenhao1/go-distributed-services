@@ -9,14 +9,50 @@
 			"revisionTime": "2016-05-04T19:26:49Z"
 		},
 		{
-			"checksumSHA1": "tzQJQ5aILqVYADcTHWvgoGS2fIs=",
-			"path": "github.com/AsynkronIT/protoactor-go",
+			"checksumSHA1": "tejWjZKUFJdFx0XNQ7D3vrevTxk=",
+			"path": "github.com/AsynkronIT/protoactor-go/actor",
 			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
 			"revisionTime": "2019-04-03T22:10:55Z"
 		},
 		{
-			"checksumSHA1": "tejWjZKUFJdFx0XNQ7D3vrevTxk=",
-			"path": "github.com/AsynkronIT/protoactor-go/actor",
+			"checksumSHA1": "nnTv6rudsik0qJDVdW2ta7a2I8s=",
+			"path": "github.com/AsynkronIT/protoactor-go/eventstream",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "tN7GLMsl1/g/fpS8eRZWtTyOe2M=",
+			"path": "github.com/AsynkronIT/protoactor-go/examples/remoteactivate/messages",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "ElvJWUndpa3sQfaXeBulYNw/Rxo=",
+			"path": "github.com/AsynkronIT/protoactor-go/internal/queue/goring",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "EChN4d3w/YOmL6uW+Kx9OvSx7S4=",
+			"path": "github.com/AsynkronIT/protoactor-go/internal/queue/mpsc",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "kTVSGnqTTAtIyBOnYWrR3vfWE5M=",
+			"path": "github.com/AsynkronIT/protoactor-go/log",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "YnXszhsuxOgCVO5LXddRrH2r4NE=",
+			"path": "github.com/AsynkronIT/protoactor-go/mailbox",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "eHklBZeIi8YPfwFgtJob6uTJjL0=",
+			"path": "github.com/AsynkronIT/protoactor-go/remote",
 			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
 			"revisionTime": "2019-04-03T22:10:55Z"
 		},
