@@ -26,7 +26,7 @@ import (
 	"log"
 	"net"
 
-	pb "go-distributed-services/domain/grpc/rpc_examples/helloworld"
+	pb "go-distributed-services/examples/grpc/rpc_examples/helloworld"
 	"google.golang.org/grpc"
 )
 

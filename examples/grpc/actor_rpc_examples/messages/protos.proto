@@ -1,0 +1,15 @@
+syntax = "proto3";
+package messages;
+// we need to import actor.proto, so our messages can include PID's
+import "github.com/AsynkronIT/protoactor-go/actor/protos.proto";
+
+// this is the message the actor on node 1 will send to the remote actor on node 2
+message Echo {
+    actor.PID Sender = 1; // this is the PID the remote actor should reply to
+    string Message = 2;
+}
+
+// this is the message the remote actor should reply with
+message Response {
+    string SomeValue = 1;
+}
