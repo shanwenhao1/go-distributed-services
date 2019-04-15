@@ -21,10 +21,21 @@ Consumer.
 
 ### 微服务架构
 
+属于分布式架构的一种, 但更加强调单一职责、轻量级通信(HTTP或gRPC)、独立性且进程隔离
+
+## 待引入
+
+- ProtoActor: 新型的actor框架, 事件驱动
+- 负载均衡: ![](doc/picture/distributed%20frame/Load%20Balance.jpg)
+- kubernetes部署服务: docker集群管理
+- zookeeper
+- kafka
+
 
 
 
 ## 资料来源
+- [3分钟读懂何为分布式、微服务和集群](http://server.51cto.com/News-557053.htm)
 - [分布式服务框架](https://www.cnblogs.com/jiyukai/p/9459983.html)
 - [微服务架构基础](https://blog.csdn.net/javaxuexi123/article/details/79500619#commentBox)
 - [ddia数据密集型应用](https://github.com/Vonng/ddia/blob/master/preface.md)

@@ -5,7 +5,8 @@ import (
 	"github.com/AsynkronIT/goconsole"
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/AsynkronIT/protoactor-go/remote"
-	"go-distributed-services/examples/grpc/actor_rpc_examples/messages"
+	"go-distributed-services/examples/grpc/actor_rpc_remote_examples/messages"
+	"strconv"
 	"time"
 )
 
@@ -18,6 +19,8 @@ func (state *MyActor) Receive(context actor.Context) {
 	case *messages.Response:
 		state.count++
 		fmt.Println(state.count)
+		response := context.Message().(*messages.Response)
+		fmt.Println("==========", response.SomeValue)
 	}
 }
 
@@ -27,7 +30,6 @@ func main() {
 	rootCtx := actor.EmptyRootContext
 	props := actor.PropsFromProducer(func() actor.Actor { return &MyActor{} })
 	pid := rootCtx.Spawn(props)
-	message := &messages.Echo{Message: "hej", Sender: pid}
 
 	// this is to spawn remote actor we want to communicate with
 	spawnResponse, err := remote.SpawnNamed("localhost:8091", "myactor", "hello", time.Second*10)
@@ -38,6 +40,7 @@ func main() {
 	// get spawned PID
 	spawnedPID := spawnResponse.Pid
 	for i := 0; i < 10; i++ {
+		message := &messages.Echo{Message: "hej" + strconv.Itoa(i), Sender: pid}
 		rootCtx.Send(spawnedPID, message)
 	}
 
