@@ -48,4 +48,9 @@ Consumer.
         - [下一代的 Actor 模型框架 Proto Actor](https://www.oschina.net/p/protoactor)
         - [高并发解决方案之Actor](https://www.cnblogs.com/gengzhe/p/6561655.html)
         - [为什么Actor模型是高并发事务的终极解决方案?](https://www.jdon.com/45728)
+    - 注意事项:
+        - actor 生成rpc文件必须使用--gogoslick_out, 而不是--go_out. 安装命令
+            ```bash
+              go get github.com/gogo/protobuf/protoc-gen-gogoslick
+            ```
 - [skynete-archive](https://github.com/skynetservices/skynet-archive): go的分布式框架

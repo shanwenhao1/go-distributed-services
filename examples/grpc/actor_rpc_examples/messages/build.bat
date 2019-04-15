@@ -1,1 +1,1 @@
-protoc --proto_path=. -I=F:\GoPath\src --go_out=plugins=grpc:. .\protos.proto
+protoc --proto_path=. -I=F:\GoPath\src --gogoslick_out=plugins=grpc:. .\protos.proto
