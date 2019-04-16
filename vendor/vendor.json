@@ -9,8 +9,26 @@
 			"revisionTime": "2016-05-04T19:26:49Z"
 		},
 		{
+			"checksumSHA1": "B/Mbbn2Ku3uNG64YMxiCuF8LWb4=",
+			"path": "github.com/AsynkronIT/gonet",
+			"revision": "0553637be2257d123c1c1877d1f3bbd23adce41d",
+			"revisionTime": "2016-11-27T09:19:28Z"
+		},
+		{
 			"checksumSHA1": "tejWjZKUFJdFx0XNQ7D3vrevTxk=",
 			"path": "github.com/AsynkronIT/protoactor-go/actor",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "BTlZXlJvXcKr13RQm3X5AKBrXVA=",
+			"path": "github.com/AsynkronIT/protoactor-go/cluster",
+			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
+			"revisionTime": "2019-04-03T22:10:55Z"
+		},
+		{
+			"checksumSHA1": "/mMv0W8ZcEWygs23xAiTean8aWA=",
+			"path": "github.com/AsynkronIT/protoactor-go/cluster/consul",
 			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
 			"revisionTime": "2019-04-03T22:10:55Z"
 		},
@@ -61,6 +79,12 @@
 			"path": "github.com/alecthomas/log4go",
 			"revision": "d146e6b86faab5f7e4d135cc63b749d74bf0d4a6",
 			"revisionTime": "2018-01-09T08:25:32Z"
+		},
+		{
+			"checksumSHA1": "9n8ZNcc5jWeDKTVod/jUb/evi5c=",
+			"path": "github.com/hashicorp/consul",
+			"revision": "ffc5c335508e28ee4319eee17f6c2b03c043f4ee",
+			"revisionTime": "2019-04-15T19:29:19Z"
 		}
 	],
 	"rootPath": "go-distributed-services"
