@@ -19,6 +19,8 @@ func (*hello) VoidFunc(r *AddRequest, ctx cluster.GrainContext) (*Unit, error) {
 	return &Unit{}, nil
 }
 
+//Register what implementation GAM should use when
+//creating actors for a certain grain type.
 func init() {
 	// apply DI and setup logic
 	HelloFactory(func() Hello { return &hello{} })

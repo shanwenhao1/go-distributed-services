@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	console "github.com/AsynkronIT/goconsole"
+	"github.com/AsynkronIT/goconsole"
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/AsynkronIT/protoactor-go/cluster"
 	"github.com/AsynkronIT/protoactor-go/cluster/consul"
