@@ -16,3 +16,9 @@ cluster使用Consul 管理集群信息:
 ## [官方文档](proto.actor/docs/grains#proto-cluster)
 
 [cluster 参考](https://blog.csdn.net/TIGER_XC/article/details/86129995)
+
+[cluster example其他例子](https://github.com/gviedma/cluster-examples)
+
+## 注意
+
+运行该cluster例子之前必须先搭建consul服务. [详情](../../../doc/consul.md)

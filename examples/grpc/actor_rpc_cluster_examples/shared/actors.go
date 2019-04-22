@@ -1,6 +1,8 @@
 package shared
 
-import "github.com/AsynkronIT/protoactor-go/cluster"
+import (
+	"github.com/AsynkronIT/protoactor-go/cluster"
+)
 
 // a Go struct implementing the Hello interface
 type hello struct {
