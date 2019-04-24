@@ -34,10 +34,10 @@ Consumer.
 ## 待引入
 
 - ProtoActor: 新型的actor框架, 事件驱动
-- consul
-- 负载均衡: ![](doc/picture/distributed%20frame/Load%20Balance.jpg)
-- kubernetes部署服务: docker集群管理
-- kafka
+- consul: 分布式集群服务发现依赖
+    - kubernetes部署服务: docker集群管理
+    - 负载均衡: ![](doc/picture/distributed%20frame/Load%20Balance.jpg)
+- kafka(考虑)
 
 
 

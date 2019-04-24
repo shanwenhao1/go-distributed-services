@@ -19,8 +19,9 @@ func main() {
 		return &shared.HelloActor{}
 	}))
 
+	// 依赖consul服务
 	config := &api.Config{}
-	config.Address = "192.168.1.89"
+	config.Address = "192.168.1.89:8500"
 
 	cp, err := consul.NewWithConfig(config)
 	if err != nil {

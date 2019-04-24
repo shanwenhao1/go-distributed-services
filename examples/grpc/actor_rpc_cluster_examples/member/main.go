@@ -10,6 +10,7 @@ import (
 	"github.com/AsynkronIT/protoactor-go/cluster"
 	"github.com/AsynkronIT/protoactor-go/cluster/consul"
 	"github.com/AsynkronIT/protoactor-go/remote"
+	"github.com/hashicorp/consul/api"
 	"go-distributed-services/examples/grpc/actor_rpc_cluster_examples/shared"
 )
 
@@ -23,7 +24,10 @@ func main() {
 		return &shared.HelloActor{}
 	}))
 
-	cp, err := consul.New()
+	config := &api.Config{}
+	config.Address = "192.168.1.89:8500"
+
+	cp, err := consul.NewWithConfig(config)
 	if err != nil {
 		log.Fatal(err)
 	}

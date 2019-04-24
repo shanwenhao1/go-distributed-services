@@ -21,4 +21,10 @@ cluster使用Consul 管理集群信息:
 
 ## 注意
 
-运行该cluster例子之前必须先搭建consul服务. [详情](../../../doc/consul.md)
+运行该cluster例子之前必须先搭建consul服务. 
+
+使用命令启动测试所需单点consul
+```bash
+consul agent -server -bootstrap-expect 1 -data-dir /home/swh/consul/data -node=s1 -bind=192.168.1.89 -client 0.0.0.0
+```
+[详情](../../../doc/consul.md)
