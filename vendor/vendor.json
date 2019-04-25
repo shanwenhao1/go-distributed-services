@@ -15,70 +15,16 @@
 			"revisionTime": "2016-11-27T09:19:28Z"
 		},
 		{
-			"checksumSHA1": "tejWjZKUFJdFx0XNQ7D3vrevTxk=",
-			"path": "github.com/AsynkronIT/protoactor-go/actor",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "BTlZXlJvXcKr13RQm3X5AKBrXVA=",
-			"path": "github.com/AsynkronIT/protoactor-go/cluster",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "/mMv0W8ZcEWygs23xAiTean8aWA=",
-			"path": "github.com/AsynkronIT/protoactor-go/cluster/consul",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "nnTv6rudsik0qJDVdW2ta7a2I8s=",
-			"path": "github.com/AsynkronIT/protoactor-go/eventstream",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "tN7GLMsl1/g/fpS8eRZWtTyOe2M=",
-			"path": "github.com/AsynkronIT/protoactor-go/examples/remoteactivate/messages",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "ElvJWUndpa3sQfaXeBulYNw/Rxo=",
-			"path": "github.com/AsynkronIT/protoactor-go/internal/queue/goring",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "EChN4d3w/YOmL6uW+Kx9OvSx7S4=",
-			"path": "github.com/AsynkronIT/protoactor-go/internal/queue/mpsc",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "kTVSGnqTTAtIyBOnYWrR3vfWE5M=",
-			"path": "github.com/AsynkronIT/protoactor-go/log",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "YnXszhsuxOgCVO5LXddRrH2r4NE=",
-			"path": "github.com/AsynkronIT/protoactor-go/mailbox",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
-			"checksumSHA1": "eHklBZeIi8YPfwFgtJob6uTJjL0=",
-			"path": "github.com/AsynkronIT/protoactor-go/remote",
-			"revision": "8d830365195eafdaf022c80dbe86811b070c430e",
-			"revisionTime": "2019-04-03T22:10:55Z"
-		},
-		{
 			"checksumSHA1": "IvVw9r5Sjnsxvgv0ekjcEQ71+zo=",
 			"path": "github.com/alecthomas/log4go",
 			"revision": "d146e6b86faab5f7e4d135cc63b749d74bf0d4a6",
 			"revisionTime": "2018-01-09T08:25:32Z"
+		},
+		{
+			"checksumSHA1": "pIXgdA8iZn/fIKIxTAoFoZZu/TA=",
+			"path": "github.com/gin-gonic/gin",
+			"revision": "7b1081a73fe4559697f4fb5a44261fbdc1d130b2",
+			"revisionTime": "2019-02-22T06:20:24Z"
 		},
 		{
 			"checksumSHA1": "9n8ZNcc5jWeDKTVod/jUb/evi5c=",

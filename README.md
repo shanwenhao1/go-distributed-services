@@ -6,6 +6,7 @@
 - [分布式架构基础知识](#分布式架构基础知识)
     - [SOA架构](#SOA架构)
     - [微服务架构](#微服务架构)
+- []()
 - [待引入](#待引入)
 - [资料来源](#资料来源)
     - [目前考量的](#目前考量的)
@@ -31,6 +32,12 @@ Consumer.
 
 属于分布式架构的一种, 但更加强调单一职责、轻量级通信(HTTP或gRPC)、独立性且进程隔离
 
+## 使用工具
+
+- [ProtoActor](doc/proto%20actor.md)
+- [Kubernetes](doc/kubernets.md): docker集群部署管理工具
+- [consul](doc/consul.md): 分布式集群服务发现工具
+
 ## 待引入
 
 - ProtoActor: 新型的actor框架, 事件驱动
@@ -50,6 +57,6 @@ Consumer.
 - [大型网站系统架构演化](http://www.cnblogs.com/leefreeman/p/3993449.html)
 
 ### 目前考量的
-- [Proto Actor模型框架](doc/proto%20actor.md):
+- [Proto Actor模型框架](doc/proto%20actor.md): 注意ProtoActor还未发布release版本
     - protoactor分布式集群依赖[consul](doc/consul.md)服务
 - [skynete-archive](https://github.com/skynetservices/skynet-archive): go的分布式框架
