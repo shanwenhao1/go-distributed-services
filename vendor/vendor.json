@@ -27,10 +27,28 @@
 			"revisionTime": "2019-02-22T06:20:24Z"
 		},
 		{
+			"checksumSHA1": "gEtlV34SWTL6eC3N9E5bT/4+FsY=",
+			"path": "github.com/gin-gonic/gin/internal/json",
+			"revision": "7b1081a73fe4559697f4fb5a44261fbdc1d130b2",
+			"revisionTime": "2019-02-22T06:20:24Z"
+		},
+		{
 			"checksumSHA1": "9n8ZNcc5jWeDKTVod/jUb/evi5c=",
 			"path": "github.com/hashicorp/consul",
 			"revision": "ffc5c335508e28ee4319eee17f6c2b03c043f4ee",
 			"revisionTime": "2019-04-15T19:29:19Z"
+		},
+		{
+			"checksumSHA1": "Zop6tGYj1SDSHv/qlEJEpfwKlWU=",
+			"path": "github.com/jinzhu/gorm",
+			"revision": "7bc35615034c1d6994088c2cc925086fba6f565e",
+			"revisionTime": "2019-04-14T13:11:29Z"
+		},
+		{
+			"checksumSHA1": "3JBPxvZn52LORHX9F382xpkt1sA=",
+			"path": "github.com/satori/go.uuid",
+			"revision": "b2ce2384e17bbe0c6d34077efa39dbab3e09123b",
+			"revisionTime": "2018-10-28T12:50:25Z"
 		}
 	],
 	"rootPath": "go-distributed-services"

@@ -21,3 +21,11 @@ type RequestJsonModel struct {
 	TimeStamp     string      `json:"time_stamp"`
 	ClientVersion string      `json:"clientVersion"`
 }
+
+//响应数据模型
+type ResponseJsonModel struct {
+	Obj       interface{} `json:"obj"`       // 内容
+	ErrorCode int         `json:"errorCode"` // 编码
+	Token     interface{} `json:"token"`     // token
+	ErrorMsg  interface{} `json:"errorMsg"`  // 消息
+}

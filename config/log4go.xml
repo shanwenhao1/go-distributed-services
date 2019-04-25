@@ -9,7 +9,7 @@
 		<tag>file</tag>
 		<type>file</type>
 		<level>DEBUG</level>
-		<property name="filename">dddProject/Infra/log/all.log</property>
+		<property name="filename">logs/all.log</property>
 		<!--
                %T - Time (15:04:05 MST)
                %t - Time (15:04)

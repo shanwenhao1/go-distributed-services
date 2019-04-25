@@ -1,0 +1,9 @@
+<dbconfig>
+	<dbname>test_actor</dbname>
+	<dbuser>root</dbuser>
+	<dbupwd>123456</dbupwd>
+	<dburl>tcp(192.168.1.89:3306)</dburl>
+	<dbmaxconn>2000</dbmaxconn>
+	<dbmaxidle>200</dbmaxidle>
+	<dblogmodel>false</dblogmodel>
+</dbconfig>
