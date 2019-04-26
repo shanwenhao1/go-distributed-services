@@ -3,6 +3,7 @@ package route
 import (
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/gin-gonic/gin"
+	"go-distributed-services/app/action"
 )
 
 type Route interface {
@@ -13,5 +14,8 @@ type Route interface {
 
 // route register, register the handle function of  web request
 func Router(handleMap map[string]gin.HandlerFunc) {
+	userAction := new(action.UserJsonModel)
 
+	// 添加login路由
+	handleMap["login"] = userAction.Login
 }

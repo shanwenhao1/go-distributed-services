@@ -1,6 +1,6 @@
 <rconfig>
     <prefix>/Test/:system/</prefix>
-    <port>:8080</port>
+    <port>127.0.0.1:8080</port>
     <serverModel>production</serverModel>
     <uploadPath>Upload</uploadPath>
     <useSSL>false</useSSL>

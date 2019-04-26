@@ -24,6 +24,7 @@ func Init() {
 	gin.SetMode(gin.ReleaseMode)
 	//router := gin.Default()
 	router := gin.New()
+	// 路由注册
 	Router(handlerMap)
 	log.LogWithTag(log.INFO, log.InitSer, "http网络框架初始化完成[%s][%s]", ConfigDataS.MPort, ConfigDataS.MEnv)
 	for patten, handle := range handlerMap {

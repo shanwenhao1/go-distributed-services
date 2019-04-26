@@ -31,6 +31,8 @@ const (
 const (
 	InitSer  = "Init Server"
 	ReqParse = "Req Parsing"
+	TestSer  = "Test Log"
+	UserAct  = "User Action"
 )
 
 // 将日志收集至指定的日志收集服务中,但由于syslog目前只支持unix.所以暂时弃用.
@@ -114,8 +116,8 @@ func LogWithTag(logType int, actionType string, arg2 interface{}, args ...interf
 
 //日志框架初始化
 // TODO 考虑将日志改为分布式收集
-func init() {
+func InitializedLog4go(path string) {
 	logger = make(log4go.Logger)
-	logger.LoadConfiguration("config/log4go.xml")
+	logger.LoadConfiguration(path)
 	logger.Info("[" + InitSer + "]: " + "日志框架初始化完成")
 }
