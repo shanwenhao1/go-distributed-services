@@ -15,7 +15,7 @@ type UserJsonModel struct {
 	Obj model.User `json:"obj"`
 }
 
-// login request
+// register request
 func (this UserJsonModel) Register(c *gin.Context) {
 	// 获取请求参数, 可以考虑在此添加中间件
 	rjm := this.GetRequestData(c, &this.RequestJsonModel)
