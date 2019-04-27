@@ -3,6 +3,7 @@ package db
 import (
 	"encoding/xml"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"go-distributed-services/domain/model"
 	"go-distributed-services/infra/log"
@@ -35,9 +36,10 @@ func GetTDS() gorm.DB {
 }
 
 //数据库连接初始化
-func init() {
+func InitializedDataSource(path string) {
 	// TODO 考虑使用consul获取配置, 可保留config文件方式
-	dataS, rErr := ioutil.ReadFile("config/dbConfig.xml")
+	fmt.Println("---------------init db connect")
+	dataS, rErr := ioutil.ReadFile(path)
 	if rErr != nil {
 		log.LogWithTag(log.ERROR, log.InitSer, "读取数据库配置文件异常:[%v]", rErr)
 		panic(rErr.Error())
@@ -59,7 +61,7 @@ func init() {
 		db.DB().SetMaxOpenConns(configData.DbMaxConn)
 		db.DB().SetMaxIdleConns(configData.DbMaxIdle)
 		// 自动迁移只会创建表、缺少列和索引等, 并不会执行任何删除及修改操作以保护数据
-		db.AutoMigrate(model.User{})
+		db.AutoMigrate(&model.User{})
 		ds = *db
 		log.LogWithTag(log.INFO, log.InitSer, "数据源已初始化完成[最大打开连接数:%v,最大空闲连接数:%v]",
 			configData.DbMaxConn, configData.DbMaxIdle)

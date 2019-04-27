@@ -1,11 +1,13 @@
 package model
 
+import "time"
+
 // user 模型示例, UserId为Entity 唯一标识符
 type User struct {
-	UserId   string      `json:"user_id" gorm:"primary_key"`
-	UserName string      `json:"user_name" gorm:"column:user_name"`
-	RegDate  interface{} `json:"reg_date" gorm:"column:reg_date"`
-	Sex      int32       `json:"sex" gorm:"-"`
+	UserId   string    `json:"user_id" gorm:"primary_key"`
+	UserName string    `json:"user_name" gorm:"column:user_name"`
+	RegDate  time.Time `json:"reg_date" gorm:"column:reg_date"`
+	Sex      int32     `json:"sex" gorm:"column:sex"`
 }
 
 func (user *User) ResetName(newName string) {

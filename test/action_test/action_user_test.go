@@ -10,9 +10,10 @@ import (
 )
 
 func TestUserAction_Login(t *testing.T) {
-	reqData := model.RequestJsonModel{}
-	reqData.ClientType = "android"
-	props := actor.PropsFromProducer(func() actor.Actor { return &service.LoginActor{} })
+	reqData := service.UserHandle{}
+	reqData.ReqJson.ClientType = "android"
+	reqData.HandleChoice = service.Register
+	props := actor.PropsFromProducer(func() actor.Actor { return &service.UserActor{} })
 	actContext := actor.EmptyRootContext
 	pid := actContext.Spawn(props)
 	result, err := actContext.RequestFuture(pid, reqData, time.Second*2).Result()

@@ -17,5 +17,6 @@ func Router(handleMap map[string]gin.HandlerFunc) {
 	userAction := new(action.UserJsonModel)
 
 	// 添加login路由
+	handleMap["register"] = userAction.Register
 	handleMap["login"] = userAction.Login
 }

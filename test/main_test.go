@@ -11,6 +11,7 @@ func MockLog(t testing.T) {
 
 }
 
+// use command `go test -v ./...` to run all test in package test
 func TestMain(m *testing.M) {
 	fmt.Println("Test Begin")
 	flag.Parse()

@@ -33,6 +33,12 @@
 			"revisionTime": "2019-02-22T06:20:24Z"
 		},
 		{
+			"checksumSHA1": "/6lS1QAr69OHKZaNjFVo77JUyhI=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "578c4c8066964679ef44f45de2b6c7e811cc665e",
+			"revisionTime": "2019-04-10T03:04:54Z"
+		},
+		{
 			"checksumSHA1": "9n8ZNcc5jWeDKTVod/jUb/evi5c=",
 			"path": "github.com/hashicorp/consul",
 			"revision": "ffc5c335508e28ee4319eee17f6c2b03c043f4ee",
