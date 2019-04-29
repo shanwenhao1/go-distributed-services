@@ -9,8 +9,9 @@
         - [Configure server](#Configure server)
     - [Start consul](#Start consul)
 - [DataCenter Backups](#DataCenter Backups)
-- []()
-- []()
+    - [Create Your First Backup](#Create Your First Backup)
+    -[Restore from Backup](#Restore from Backup)
+- [Bootstrapping the ACL System](#Bootstrapping the ACL System)
 - []()
 
 本文档为建立consul DataCenter的指引文档
@@ -163,3 +164,39 @@ sudo systemctl status consul
 ```  
 
 ## DataCenter Backups
+
+consul 提供了snapshot(快照)命令. 默认情况下, 所有快照使用`consistent mode`. 执行快照之前会经过leader校验
+consul是否在线, 快照不会在数据中心降级及leader暂时不存在时执行
+
+为了减少leader的压力, 可采取`stale consistency mode`在非leader机器上拍摄快照, 不过这样可能丢失少部分的最新数据.
+通常丢失的是100ms以内的数据,但是在分布式服务上则无法保证该时间, 数据可能丢失更多.
+
+### Create Your First Backup
+
+通常备份应该写入脚本经常性的进行备份, 同时在datacenter升级之前也需要进行备份. 比如:
+- 因为升级后导致的一些更改而使得不可能在降级回来
+- datacenter失去仲裁所需最少节点而导致决策失效时, 你可以使用备份数据新增一个server节点从而使得服务恢复.
+
+也无需在每个节点上都进行备份
+
+备份的一些命令
+- `consul snapshot save backup.snap` 会备份consul在执行该命令的目录下
+    - `consul snapshot save -stale backup.snap`在非leader节点下specifying stale mode备份
+    - ACL验证下备份
+    ```bash
+      export CONSUL_HTTP_TOKEN=<your ACL token>
+      consul snapshot save -stale -ca-file=</path/to/file> backup.snap
+    ``` 
+- `consul snapshot inspect backup.snap`查看备份信息
+
+### Restore from Backup 
+
+为了确保从备份中恢复较平稳的运行, 请确保在leader上执行恢复备份的操作.
+可使用`consul operator raft list-peers`查看节点状态.
+
+恢复备份命令(此处是没有ACL验证的)
+```bash
+consul snapshot restore backup.snap
+```
+
+## Bootstrapping the ACL System
