@@ -36,7 +36,7 @@ Consumer.
 
 - [ProtoActor](doc/proto%20actor.md)
 - [Kubernetes](doc/kubernets.md): docker集群部署管理工具
-- [consul](doc/consul.md): 分布式集群服务发现工具
+- [consul](doc/consul/consul.md): 分布式集群服务发现工具
 - [gOrm](http://gorm.book.jasperxu.com/)
 
 ## 待引入
@@ -59,5 +59,5 @@ Consumer.
 
 ### 目前考量的
 - [Proto Actor模型框架](doc/proto%20actor.md): 注意ProtoActor还未发布release版本
-    - protoactor分布式集群依赖[consul](doc/consul.md)服务
+    - protoactor分布式集群依赖[consul](doc/consul/consul.md)服务
 - [skynete-archive](https://github.com/skynetservices/skynet-archive): go的分布式框架

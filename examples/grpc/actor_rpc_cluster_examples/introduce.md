@@ -27,4 +27,4 @@ cluster使用Consul 管理集群信息:
 ```bash
 consul agent -server -bootstrap-expect 1 -data-dir /home/swh/consul/data -node=s1 -bind=192.168.1.89 -client 0.0.0.0
 ```
-[详情](../../../doc/consul.md)
+[详情](../../../doc/consul/consul.md)
