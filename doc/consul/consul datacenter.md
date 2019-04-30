@@ -1,5 +1,7 @@
 # Consul DataCenter
 
+最新的secretID: 3b6d7fa6-0b58-b471-b3ec-68021012c64c
+
 @[TOC]
 - [Consul Reference Architecture](#Consul Reference Architecture)
 - [Deployment Guide](#Deployment Guide)
@@ -12,7 +14,16 @@
     - [Create Your First Backup](#Create Your First Backup)
     -[Restore from Backup](#Restore from Backup)
 - [Bootstrapping the ACL System](#Bootstrapping the ACL System)
+    - [Enable ACLs on all the Consul Servers](#Enable ACLs on all the Consul Servers)
+    - [Create the Bootstrap Token](#Create the Bootstrap Token)
+    - [Create an Agent Token Policy](#Create an Agent Token Policy)
+    - [Create an Agent Token](#Create an Agent Token)
+    - [Add the Agent Token to all the Servers](#Add the Agent Token to all the Servers)
+    - []()
+    - []()
+    - []()
 - []()
+- [最终的配置文件样例](#最终的配置文件样例)
 
 本文档为建立consul DataCenter的指引文档
 
@@ -56,9 +67,9 @@ consul下载地址[https://releases.hashicorp.com/consul/](https://releases.hash
     # 创建consul用户
     sudo useradd --system --home /etc/consul.d --shell /bin/false consul
     # 创建consul用户所需datacenter文件夹
-    sudo mkdir --parents /home/swh/consul/datacenter
+    sudo mkdir --parents /tmp/consul
     # 将权限转移给consul用户
-    sudo chown --recursive consul:consul /home/swh/consul/datacenter
+    sudo chown --recursive consul:consul /tmp/consul
     ```
 
 ### Configure system
@@ -84,7 +95,7 @@ Systemd 一般使用[默认](https://www.freedesktop.org/software/systemd/man/sy
     Group=consul
     # Start consul with the `agent` argument and path to the configuration file 
     # bind is default to 0.0.0.0, 本不用配置, 但由于可能存在多个IP, 因此此处加上bind参数
-    ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/
+    ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -data-dir=/tmp/consul
     # 开放客户端端口
     # ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -client=0.0.0.0
     # Send consul a reload signal to trigger a configuration reload in consul 
@@ -119,7 +130,7 @@ Configuration可按照lexical order从多个文件总加载. 关于configuration
         # The datacenter in which the agent is running
         datacenter = "dc1"
         # The data directory for the agent to store state
-        data_dir = "/home/swh/consul/datacenter"
+        data_dir = "/tmp/consul"
         # Specifies the secret key to use for encryption of Consul network traffic
         encrypt = "Luj2FZWwlt8475wD1WtwUQ=="
         ```
@@ -200,3 +211,113 @@ consul snapshot restore backup.snap
 ```
 
 ## Bootstrapping the ACL System
+
+需要1.4+的集群, 使用前建议阅读[ACL 文档](https://www.consul.io/docs/acl/acl-system.html)
+
+### Enable ACLs on all the Consul Servers
+在`/etc/consul.d`目录下创建一个.json配置文件(agent使用, 这里我创建的是acl.json). 将以下配置写入文件
+    ```bash
+    {
+      "acl": {
+        "enabled": true,
+        "default_policy": "deny",
+        "down_policy": "extend-cache"
+      }
+    }
+    ```
+注意在consul集群中根据新的配置文件重启必须要一个接一个重启(确保之前重启的节点生效).创建成功则可在日志
+中看到. ![](../../doc/picture/consul/acl.png)
+
+### Create the Bootstrap Token 
+bootstrap token is a management token with unrestricted privileges. 与集群中所有server共享
+
+The bootstrap token can also be used in the server configuration file as the 
+[master token](https://www.consul.io/docs/agent/options.html#acl_tokens_master)
+
+bootstrap token只可创建一次, bootstrapping will disabled after the master token was created.
+如果ACL system还处于bootstrapped状态, ACL tokens 可通过[ACL API](https://www.consul.io/api/acl/acl.html)更改.
+```bash
+# added to the state store
+consul acl bootstrap
+```
+![](../../doc/picture/consul/acl%20token.png)
+
+`注意`: 后续操作如果出现问题, 则可跳转至此按照步骤重新配置
+```bash
+# reset ACL system by reset index
+consul acl bootstrap
+        Failed ACL bootstrapping: Unexpected response code: 403 (Permission denied: ACL bootstrap no longer allowed (reset index: 13))
+# 更改index, (此种方法暂时无效, 未理解）
+# echo 13 >> <data-directory>/acl-bootstrap-reset
+echo 13 >> /tmp/consul/acl-bootstrap-reset
+```
+
+
+一旦enable了acl, 那么我们所有的指令操作都要加上acl认证, 如下
+- [command] -token SecretID方式, 不推荐
+```bash
+# before enable acl
+consul members
+# after enable acl, [command] -token SecretID
+consul members -token 47a1551d-7ced-402b-78df-8ef98fd210ce
+```
+- 使用环境变量的方式自动认证acl, 然后即可使用`consul members`的方式照常访问了
+```bash
+export CONSUL_HTTP_TOKEN=47a1551d-7ced-402b-78df-8ef98fd210ce
+```
+
+### Create an Agent Token Policy
+在创建token之前我们先需要创建一组策略来指定权限, [详情](https://www.consul.io/docs/acl/acl-rules.html)
+- 编写策略文件`policy.hcl`(注意该文件最好别放在/etc/consul.d目录下, 会影响启动). 该策略允许任意设备可注册及可读(不建议在生产环境中使用)
+```bash
+node_prefix "" {
+   policy = "write"
+}
+service_prefix "" {
+   policy = "read"
+}
+```
+- 只需生成一个policy策略就可使用在其他所有server节点上了, 注意: 如果未`export` CONSUL_HTTP_TOKEN, 
+则需要在命令后面加上`- token SecretID`
+```bash
+consul acl policy create -name "agent-token" -description "Agent Token Policy" -rules @/tmp/consul/policy.hcl
+```
+![](../../doc/picture/consul/agent%20policy.png)
+接下来可以使用这些策略去生成我们自己所需的agent token了
+
+### Create an Agent Token
+使用新创建的策略创建agent token. 可将token分享至所有server. 现在agent token中的SecretID可以用来认证API和CLI
+命令了
+```bash
+consul acl token create -description "Agent Token" -policy-name "agent-token"
+```
+![](../../doc/picture/consul/agent%20token.png)
+
+### Add the Agent Token to all the Servers
+现在使用agent token配置consul server 并重启服务. 将以下配置写入`/etc/consul.d/server.json`中
+```bash
+{
+  "primary_datacenter": "dc1",
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache",
+    "tokens": {
+      "agent": "f5ccd945-cdea-1a92-465f-d6bda4fdfb0b"
+    }
+  }
+}
+```
+检测ACL权限是否正常启用
+```bash
+curl http://127.0.0.1:8500/v1/catalog/nodes -H 'x-consul-token: f5ccd945-cdea-1a92-465f-d6bda4fdfb0b'
+```
+
+###
+
+## 最终的配置文件样例
+- `/etc/systemd/system/consul.service`,[文件](../../doc/consul/consul%20files/consul.service)
+- `/etc/consul.d/consul.hcl`, [文件](../../doc/consul/consul%20files/consul.d/consul.hcl)
+- `/etc/consul.d/server.hcl`, [文件](../../doc/consul/consul%20files/consul.d/server.hcl)
+- `/etc/consul.d/acl.json`, [文件](../../doc/consul/consul%20files/consul.d/acl.json)
+- `policy.hcl`, [文件](../../doc/consul/consul%20files/consul.d/policy.hcl)
