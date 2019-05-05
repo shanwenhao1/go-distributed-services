@@ -6,9 +6,9 @@ After=network-online.target
 ConditionFileNotEmpty=/etc/consul.d/consul.hcl
 
 [Service]
-User=consul
-Group=consul
-ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d -client=0.0.0.0
+User=root
+Group=root
+ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -data-dir=/opt/consul
 ExecReload=/usr/bin/consul reload
 KillMode=process
 Restart=on-failure
@@ -16,3 +16,4 @@ LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
+
