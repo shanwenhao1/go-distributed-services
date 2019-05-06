@@ -8,7 +8,7 @@ ConditionFileNotEmpty=/etc/consul.d/consul.hcl
 [Service]
 User=root
 Group=root
-ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -data-dir=/opt/consul
+ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -data-dir=/opt/consul -client 0.0.0.0
 ExecReload=/usr/bin/consul reload
 KillMode=process
 Restart=on-failure

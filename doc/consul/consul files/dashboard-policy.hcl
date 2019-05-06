@@ -1,0 +1,3 @@
+service "dashboard" {
+  policy = "write"
+}

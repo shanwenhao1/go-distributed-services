@@ -196,4 +196,9 @@ consul kv delete -recurse redis
 consul agent -dev -ui
 ```
 
+注意如果要查看的话, 还需要在后面添加`-client`参数
+```bash
+consul agent -dev -ui -client 0.0.0.0
+```
+
 ### Kubernetes部署

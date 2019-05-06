@@ -1,6 +1,7 @@
 # Consul DataCenter
 
 最新的secretID: cb49564f-c1ab-b28c-09cf-feeccea0d117
+consul acl token list可列出有哪些token
 
 @[TOC]
 - [DataCenter Deploy](#DataCenter Deploy)
@@ -22,10 +23,7 @@
         - [Create the Agent Policy](#Create the Agent Policy)
         - [Create the Agent Token](#Create the Agent Token)
         - [Add the Token to the Agent](#Add the Token to the Agent)
-        - [Enable ACLs on the Consul Clients](#Enable ACLs on the Consul Clients )
-        - []()
-        - []()
-    - []()
+    - [Apply Individual Tokens to the Services](#Apply Individual Tokens to the Services)
     - [最终的配置文件样例](#最终的配置文件样例)
 - [参考](#参考)
 
@@ -92,7 +90,8 @@ Systemd 一般使用[默认](https://www.freedesktop.org/software/systemd/man/sy
     Group=root
     # Start consul with the `agent` argument and path to the configuration file 
     # bind is default to 0.0.0.0, 本不用配置, 但由于可能存在多个IP, 因此此处加上bind参数
-    ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -data-dir=/opt/consul
+    # -client参数只是指定为客户端的node上需要该参数 
+    ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -data-dir=/opt/consul -client 0.0.0.0
     # 开放客户端端口
     # ExecStart=/usr/bin/consul agent -bind=192.168.1.89 -config-dir=/etc/consul.d/ -client=0.0.0.0
     # Send consul a reload signal to trigger a configuration reload in consul 
@@ -200,6 +199,7 @@ consul snapshot restore backup.snap
 
 
 ## Security and Networking
+具体可参考[官方样例](https://www.consul.io/docs/commands/acl.html)
 
 ### Bootstrapping the ACL System
 
@@ -301,47 +301,17 @@ consul acl token create -description "consul-server-one agent token" -policy-nam
 ![](../../doc/picture/consul/agent%20token.png)
 
 #### Add the Token to the Agent
+
 最后, 将生成的token应用到agents中, 启动服务并确保服务已正常启动
 ```bash
+# <your token here> is the acl token to use in the request. default to the token of the consul agent at the
+# HTTP address.       <agent token here> is the token that the agent will use for internal agent, default token
+# for these operations
+# 具体参数信息可通过consul acl set-agent-token --help 查看. consul acl 可查看subcommands
 consul acl set-agent-token -token "<your token here>" agent "<agent token here>"
+consul acl set-agent-token agent "4ac44329-ae1c-0498-c308-a6a7397dc0cd"
 ```
 
-
-
-
-
-
-
-现在使用agent token配置consul server 并重启服务. 将以下配置写入`/etc/consul.d/server.json`中. 
-[详情](https://learn.hashicorp.com/consul/security-networking/production-acls#bootstrap-the-acl-system)
-```bash
-{
-  "service": {
-    "name": "consul-server-one",
-    "port": 9002,
-    "token": "4ac44329-ae1c-0498-c308-a6a7397dc0cd",
-    "check": {
-      "id": "consul-server-one-check",
-      "http": "http://localhost:9002/health",
-      "method": "GET",
-      "interval": "1s",
-      "timeout": "1s"
-     }
-  }
-}
-
-{
-  "primary_datacenter": "dc1",
-  "acl": {
-    "enabled": true,
-    "default_policy": "deny",
-    "down_policy": "extend-cache",
-    "tokens": {
-      "agent": "4ac44329-ae1c-0498-c308-a6a7397dc0cd"
-    }
-  }
-}
-```
 检测ACL权限是否正常启用
 ```bash
 curl --header "X-Consul-Token: 4ac44329-ae1c-0498-c308-a6a7397dc0cd" http://127.0.0.1:8500/v1/agent/members
@@ -349,7 +319,61 @@ curl --header "X-Consul-Token: 4ac44329-ae1c-0498-c308-a6a7397dc0cd" http://127.
 curl http://127.0.0.1:8500/v1/catalog/nodes -H 'x-consul-token: 4ac44329-ae1c-0498-c308-a6a7397dc0cd'
 ```
 
-#### Enable ACLs on the Consul Clients 
+
+
+### Apply Individual Tokens to the Services
+
+为service生成令牌token步骤与上一步generate agent token类似. 利用指定的policy创建token, 将token加入service.
+- 创建`dashboard-policy.hcl`
+```bash
+service "dashboard" {
+  policy = "write"
+}
+```
+- 创建token
+```bash
+consul acl policy create -name "dashboard-service" -rules @dashboard-policy.hcl
+consul acl token create -description "Token for Dashboard Service" -policy-name dashboard-service
+```
+![](../picture/consul/services%20token.png)
+secretID: 3bacae31-2609-4d8e-3644-30ffb512993d
+
+
+
+
+现在使用agent token配置consul server 并重启服务. 将以下配置写入`/etc/consul.d/dashboard.json`中.
+(注意以下配置要运行成功的话必须现在本地启动一个监听9002端口的health http service, 否则一直会是connection refused) 
+[详情](https://learn.hashicorp.com/consul/security-networking/production-acls#bootstrap-the-acl-system)
+```bash
+{
+  "service": {
+    "name": "dashboard",
+    "port": 9002,
+    "token": "3bacae31-2609-4d8e-3644-30ffb512993d",
+    "check": {
+      "id": "dashboard-check",
+      "http": "http://localhost:9002/health",
+      "method": "GET",
+      "interval": "1s",
+      "timeout": "1s"
+     }
+  }
+}
+```
+
+```bash
+{
+  "primary_datacenter": "dc1",
+  "acl": {
+    "enabled": true,
+    "default_policy": "deny",
+    "down_policy": "extend-cache",
+    "tokens": {
+      "agent": "cb49564f-c1ab-b28c-09cf-feeccea0d117"
+    }
+  }
+}
+```
 
 ### 最终的配置文件样例
 - `/etc/systemd/system/consul.service`,[文件](../../doc/consul/consul%20files/consul.service)
@@ -357,6 +381,8 @@ curl http://127.0.0.1:8500/v1/catalog/nodes -H 'x-consul-token: 4ac44329-ae1c-04
 - `/etc/consul.d/server.hcl`, [文件](../../doc/consul/consul%20files/consul.d/server.hcl)
 - `/etc/consul.d/consul.hcl`, [文件](../../doc/consul/consul%20files/consul.d/consul.hcl)
 - `consul-server-one-policy.hcl`, [文件](../../doc/consul/consul%20files/consul-server-one-policy.hcl)
+- `dashboard-policy.hcl`, [文件](../../doc/consul/consul%20files/dashboard-policy.hcl)
+- `/etc/consul.d/dashboard.json`, [文件](../../doc/consul/consul%20files/consul.d/dashboard.json)
 
 
 ## 去掉的步骤
@@ -406,5 +432,7 @@ consul acl bootstrap
 # echo 13 >> <data-directory>/acl-bootstrap-reset
 echo 13 >> /tmp/consul/acl-bootstrap-reset
 ```
+
+
 ## 参考
 - [GO Micro 搭建 Consul服务发现集群实例](https://github.com/yuansir/go-micro-consul-cluster)

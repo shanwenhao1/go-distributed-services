@@ -1,0 +1,14 @@
+{
+  "service": {
+    "name": "dashboard",
+    "port": 9002,
+    "token": "3bacae31-2609-4d8e-3644-30ffb512993d",
+    "check": {
+      "id": "dashboard-check",
+      "http": "http://localhost:9002/health",
+      "method": "GET",
+      "interval": "1s",
+      "timeout": "1s"
+     }
+  }
+}
