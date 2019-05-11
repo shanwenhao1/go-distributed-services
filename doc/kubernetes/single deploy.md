@@ -13,7 +13,7 @@
         - [step 2](#step-2)
         - [step 3](#step-3)
             - [CNI bridge](#CNI-bridge(非必须))
-    - [Init Worker Node](#Init-Worker Node)
+    - [Init Worker Node](#Init-Worker-Node)
 
 - [自定义`kubeadm`配置](#自定义kubeadm配置)
 - [二进制文件部署方式(暂未完善)](#二进制文件部署方式)

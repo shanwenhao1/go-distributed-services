@@ -14,6 +14,13 @@
         - etcd: 高可用的key-value store 负责存储k8s集群数据
      
      
+## kubernetes配置
+kubernetes里所有的资源对象都可以采用yaml或者JSON格式的文件来定义或描述
+- pod资源定义文件:
+```bash
+
+``` 
+     
 ## 常用命令
 
 
