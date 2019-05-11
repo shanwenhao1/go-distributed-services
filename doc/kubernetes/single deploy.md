@@ -8,12 +8,12 @@
         - [安装kubeadm](#安装kubeadm)
             - [docker安装](#docker安装)
             - [安装kubeadm、kubelet、kubectl](#安装kubeadm、kubelet、kubectl)
-    - [Init Master](#Init Master)
+    - [Init Master](#Init-Master)
         - [step 1](#step-1)
         - [step 2](#step-2)
         - [step 3](#step-3)
-            - [CNI bridge](#CNI bridge(非必须))
-    - [Init Worker Node](#Init Worker Node)
+            - [CNI bridge](#CNI-bridge(非必须))
+    - [Init Worker Node](#Init-Worker Node)
 
 - [自定义`kubeadm`配置](#自定义kubeadm配置)
 - [二进制文件部署方式(暂未完善)](#二进制文件部署方式)
@@ -50,13 +50,14 @@ swapoff -a
 
 ## 安装
 ### 安装kubeadm
-如果已经安装则`apt-get update && apt-get upgrade kubeadm`更新kubeadm. [跳至](#Init Master) 
+如果已经安装则`apt-get update && apt-get upgrade kubeadm`更新kubeadm. [跳至](#Init-Master) 
 
 kubernetes作为容器管理工具, 最好先安装所需容器服务, 这里选择docker
 #### docker安装
 从v1.14.0开始, k8s会自动扫描下图中的地址以选择一个Container Runtime(默认是docker)作为k8s的container runtime interface.
 如果没有, 则可按照[CRI Installation instructions](https://kubernetes.io/docs/setup/cri/)安装.
 ![](../../doc/picture/kubernetes/runtime.png)
+
 [docker安装脚本](../../doc/kubernetes/install/docker.sh)
 
 #### 安装kubeadm、kubelet、kubectl
@@ -139,8 +140,8 @@ kubeadm join 192.168.80.129:6443 --token ydd6fb.sei7y7bhoxha6elw \
 [策略插件](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)
 - 这里我选择Weave Net作为Network解决方案: Weave Net 官方[安装向导](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
     - Weave Net需要依赖一些CNI 插件. 按照以下了解
-        - [CNI plugins](#CNI bridge) 
-    - 安装Weave Net, 注意要符合kubectl的版本(这里使用v1.14.0)\
+        - [CNI plugins](#CNI-bridge(非必须)) 
+    - 安装Weave Net, 注意要符合kubectl的版本(这里使用v1.14.0)
         - 设置`sysctl net.bridge.bridge-nf-call-iptables=1` to pass bridged IPv4 traffic to iptables chains
         - 使用以下命令安装网络插件
         ```bash
