@@ -77,6 +77,8 @@ An HA cluster with external etcd是独立运行在kubeadm cluster之外的key-va
 较于`Stacked etcd topology`而言, 它能停供更稳定的服务, 对于集群冗余的影响较小. 但是至少需要两倍的机器进行部署
 ![](../../doc/picture/kubernetes/etcd%20cluster.png)
 
+[如何创建独立的etcd cluster集群](https://kubernetes.io/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
+
 
 ## 创建一个高可用集群
 [文档](https://kubernetes.io/docs/setup/independent/high-availability/)
@@ -84,3 +86,70 @@ An HA cluster with external etcd是独立运行在kubeadm cluster之外的key-va
 **注意: 通过kubeadm创建HA cluster一直在改进, 未来可能进一步简化**, 应时常关注更新文档.
 
 ### 准备
+- 三台符合kubeadm要求的机器并且拥有Full network
+- 拥有root权限
+- kubeadm和kubelet已经安装在机器上
+
+### 步骤
+- 大致步骤:
+    - 创建kube-apiserver 负载均衡(使用域名)
+        - 默认健康检查端口为6443
+        - 不建议在云环境中直接使用IP地址(最好使用域名)
+        - 该load balance must be able to communicate with all control plan nodes on the apiServer
+        - 确保负载均衡的地址与kubeadm配置中`controlPlaneEndpoint`匹配.
+    - 将第一个节点加入the load balancer并测试连通性
+    ```bash
+    nc -v LOAD_BALANCER_IP PORT
+    # 启动apiServer后才可运行该选项, 否则会失败
+    nc -v 192.168.80.129 6443
+    ```
+    - 将剩下的control plane node 加入the load balancer
+    
+- Stacked control plane and etcd nodes(control plane与etcd 服务在同一节点上)
+    - 在第一个control plane节点上, 创建配置文件`kubeadm-config.yaml`
+    ```bash
+    apiVersion: kubeadm.k8s.io/v1beta1
+    kind: ClusterConfiguration
+    kubernetesVersion: stable                                     # 设置使用的kubernetes版本, 这里使用v1.14.0
+    controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"  # 负载均衡的地址(域名)和端口, 这里使用"192.168.80.129:6443
+    ```
+    - 初始化control plane
+        - kubeadm init
+        ```bash
+        # experimental-upload-cert表示将所有control plane共享的证书上传至集群
+        sudo kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs
+        ```
+        获得如下结果
+        ![](../../doc/picture/kubernetes/kubeadm%20init%20cluster%20master.png)
+        ```bash
+        # control plane join
+        kubeadm join 192.168.80.129:6443 --token py4fq8.ocm3cety6u2uhr7v \
+          --discovery-token-ca-cert-hash sha256:88becb99285b01e5ee0fbc39197f6946512c010afb010df89c22204a77ef24ca \
+          --experimental-control-plane --certificate-key 6b6b3402020a861e9a10e74c4afc1ff8dba5b73a711d864cabe6537c096c3d92
+        # worker node join
+        kubeadm join 192.168.80.129:6443 --token py4fq8.ocm3cety6u2uhr7v \
+            --discovery-token-ca-cert-hash sha256:88becb99285b01e5ee0fbc39197f6946512c010afb010df89c22204a77ef24ca
+        # 如果需要更新证书, 只需要在集群中任意一个control plane上运行以下命令. 默认两小时过期
+        kubeadm init phase upload-certs --experimental-upload-certs
+        ```
+        - 剩余步骤
+        ```bash
+        # 添加policy
+        kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+        # 验证control plane是否已启动
+        kubectl get pods --all-namespaces
+        kubectl get nodes
+        ```
+    - 将剩下的control plane加入至集群, ~~注意更改主机名称~~([例子](single%20deploy.md#其它注意的事项))
+    ```bash
+    # 执行第一个control plane上生成的control plane join命令
+      #   --experimental-control-plane要求kubeadm join 创建一个新的control plane
+      #   --certificate-key从集群中下载证书并利用指定的key进行解密
+     kubeadm join 192.168.80.129:6443 --token py4fq8.ocm3cety6u2uhr7v \
+         --discovery-token-ca-cert-hash sha256:88becb99285b01e5ee0fbc39197f6946512c010afb010df89c22204a77ef24ca \
+         --experimental-control-plane --certificate-key 6b6b3402020a861e9a10e74c4afc1ff8dba5b73a711d864cabe6537c096c3d92
+    ```
+- External etcd nodes(etcd 服务独立出来的部署方式): 我们不采用这种方式, 因此就不写步骤了. 
+[官方文档](https://kubernetes.io/docs/setup/independent/high-availability/#external-etcd-nodes)
+- 接下来就是work node的加入了, [参考]()
+- 如果需要手动管理证书, [参考](https://kubernetes.io/docs/setup/independent/high-availability/#manual-certs)
