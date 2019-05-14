@@ -44,13 +44,13 @@ Consul是一个用来实现分布式系统的服务发现与配置的开源工�
 ###### 初步了解
 - 启动单点server
     ```bash
-         consul agent -dev -config-dir=/home/swh/consul/consul.d
+         consul agent -dev -config-dir=/etc/consul.d/consul.d
     ```
     - ctrl c 或者consul leave 命令停止agent
 - 注册服务
     - 创建配置文件目录, 并配置agent启动配置(配置文件以.json命名), 通过更改配置文件并发送信号至agent可实现不停机修改.
         ```
-            cat <<EOF | sudo tee /home/swh/consul/consul.d/web.json
+            cat <<EOF | sudo tee /etc/consul.d/consul.d/web.json
             {
               "service": {
                 "name": "web",
@@ -66,7 +66,7 @@ Consul是一个用来实现分布式系统的服务发现与配置的开源工�
 - 注册服务并连接
     - 在consul.d目录下添加配置文件, 并使用consul reload重载consul
         ```bash
-        cat <<EOF | sudo tee /home/swh/consul/consul.d/socat.json
+        cat <<EOF | sudo tee /etc/consul.d/consul.d/socat.json
         {
           "service": {
             "name": "socat",
@@ -101,9 +101,9 @@ Consul是一个用来实现分布式系统的服务发现与配置的开源工�
 事实上, service与connect是上下游的依赖关系, service依赖于connect. 以下配置文件, 另建9191端口监听请求, 实际服务
 部署在8181端口的socat服务.
 
-- 创建配置文件, 调用console reload更新服务(或`consul agent -dev -config-dir=/home/swh/consul/consul.d`启动服务)        
+- 创建配置文件, 调用console reload更新服务(或`consul agent -dev -config-dir=/etc/consul.d/consul.d`启动服务)        
     ```bash
-    cat <<EOF | sudo tee /home/swh/consul/consul.d/web.json
+    cat <<EOF | sudo tee /etc/consul.d/consul.d/web.json
     {
         "service": {
          "name": "web",

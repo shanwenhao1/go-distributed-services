@@ -1,4 +1,5 @@
 # 测试部署高可用集群
+做高可用kubernetes集群至少需要k8s master节点两个以上, 最好是三个(测试部署两个挂掉一个集群就Done掉了)
 
 @[TOC]
 - [kubeadm访问控制配置](#kubeadm访问控制配置)
@@ -7,8 +8,8 @@
     - [External etcd topology](#External-etcd-topology)
 - [创建一个高可用集群](#创建一个高可用集群)
     - [准备](#准备)
-- []()
-- []()
+    - [步骤](#步骤)
+- [kubernetes使用](#kubernetes使用)
 
 ## kubeadm访问控制配置
 [文档](https://kubernetes.io/docs/setup/independent/control-plane-flags/)
@@ -125,7 +126,7 @@ An HA cluster with external etcd是独立运行在kubeadm cluster之外的key-va
         # control plane join
         kubeadm join 192.168.80.129:6443 --token py4fq8.ocm3cety6u2uhr7v \
           --discovery-token-ca-cert-hash sha256:88becb99285b01e5ee0fbc39197f6946512c010afb010df89c22204a77ef24ca \
-          --experimental-control-plane --certificate-key 6b6b3402020a861e9a10e74c4afc1ff8dba5b73a711d864cabe6537c096c3d92
+          --experimental-control-plane --certificate-key d5049926888228af9a2c747c071f16216f7b77e7daf0bb0059d242b2dcb67efd
         # worker node join
         kubeadm join 192.168.80.129:6443 --token py4fq8.ocm3cety6u2uhr7v \
             --discovery-token-ca-cert-hash sha256:88becb99285b01e5ee0fbc39197f6946512c010afb010df89c22204a77ef24ca
@@ -141,15 +142,22 @@ An HA cluster with external etcd是独立运行在kubeadm cluster之外的key-va
         kubectl get nodes
         ```
     - 将剩下的control plane加入至集群, ~~注意更改主机名称~~([例子](single%20deploy.md#其它注意的事项))
-    ```bash
-    # 执行第一个control plane上生成的control plane join命令
-      #   --experimental-control-plane要求kubeadm join 创建一个新的control plane
-      #   --certificate-key从集群中下载证书并利用指定的key进行解密
-     kubeadm join 192.168.80.129:6443 --token py4fq8.ocm3cety6u2uhr7v \
-         --discovery-token-ca-cert-hash sha256:88becb99285b01e5ee0fbc39197f6946512c010afb010df89c22204a77ef24ca \
-         --experimental-control-plane --certificate-key 6b6b3402020a861e9a10e74c4afc1ff8dba5b73a711d864cabe6537c096c3d92
-    ```
+        ```bash
+        # 执行第一个control plane上生成的control plane join命令
+          #   --experimental-control-plane要求kubeadm join 创建一个新的control plane
+          #   --certificate-key从集群中下载证书并利用指定的key进行解密
+         kubeadm join 192.168.80.129:6443 --token py4fq8.ocm3cety6u2uhr7v \
+             --discovery-token-ca-cert-hash sha256:88becb99285b01e5ee0fbc39197f6946512c010afb010df89c22204a77ef24ca \
+             --experimental-control-plane --certificate-key 6b6b3402020a861e9a10e74c4afc1ff8dba5b73a711d864cabe6537c096c3d92
+        ```
+        - 添加kubectl的环境变量`KUBECONFIG=/etc/kubernetes/admin.conf`, [示例](single%20deploy.md#step-2)
 - External etcd nodes(etcd 服务独立出来的部署方式): 我们不采用这种方式, 因此就不写步骤了. 
 [官方文档](https://kubernetes.io/docs/setup/independent/high-availability/#external-etcd-nodes)
-- 接下来就是work node的加入了, [参考]()
+- 接下来就是work node的加入了, [参考](single%20deploy.md#init-worker-node)
 - 如果需要手动管理证书, [参考](https://kubernetes.io/docs/setup/independent/high-availability/#manual-certs)
+- [使用kubeadm设置kubelet](https://kubernetes.io/docs/setup/independent/kubelet-integration/): kubernetes载入配置
+都设置在`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`中
+
+## kubernetes使用
+
+[kubernetes使用](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)

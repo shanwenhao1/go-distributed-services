@@ -40,4 +40,9 @@ kubectl delete pod pod_name
 # 创建token(默认过期时间是24h)
 kubeadm token generate
 kubeadm token create
+
+# 删除某个节点, --ignore-daemonsets为master节点使用
+kubectl drain ubuntu-node-1 --delete-local-data --ignore-daemonsets
+kubectl delete node ubuntu-node-1
+kubect get nodes
 ```
