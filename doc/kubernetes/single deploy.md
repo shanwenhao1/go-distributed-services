@@ -138,6 +138,8 @@ kubeadm join 192.168.80.129:6443 --token ydd6fb.sei7y7bhoxha6elw \
 
 ~~choose a pod network add-on: 必须先安装Pod网络插件, 以便Pod之间可以互相通信.~~
 [策略插件](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)
+- 群里面说推荐使用选择[Calico](https://docs.projectcalico.org/v3.7/getting-started/kubernetes/),
+[install Calico for policy](https://docs.projectcalico.org/v3.7/getting-started/kubernetes/installation/calico)
 - 这里我选择Weave Net作为Network解决方案: Weave Net 官方[安装向导](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
     - Weave Net需要依赖一些CNI 插件. 按照以下了解
         - [CNI plugins](#CNI-bridge(非必须)) 

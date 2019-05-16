@@ -20,6 +20,7 @@
 - [通过docker快速部署](docker_practice.pdf)
 
 ## kubernetes使用教程
+[RBAC 权限认证](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 
 
 

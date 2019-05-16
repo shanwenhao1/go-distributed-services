@@ -122,12 +122,52 @@ pending状态, 还未找到原因
         helm install -f helm-consul-values.yaml --name hedgehog ./consul-helm
         ```
         - 出现以下错误时
-        ```bash
-        # 错误解决: https://stackoverflow.com/questions/47973570/kubernetes-log-user-systemserviceaccountdefaultdefault-cannot-get-services
-        # http://www.cnblogs.com/linuxk/p/9772117.html
-        Error: release hedgehog failed: namespaces "default" is forbidden: User "system:serviceaccount:kube-system:default" 
-        cannot get resource "namespaces" in API group "" in the namespace "default"
-        ```
+            ```bash
+            Error: release hedgehog failed: namespaces "default" is forbidden: User "system:serviceaccount:kube-system:default" 
+            cannot get resource "namespaces" in API group "" in the namespace "default"
+            ```
+            - 错误解决:(这里采用的是第二种方法Helm权限配置)
+                - 官方方法(请仔细阅读文档), [stack over flow](https://stackoverflow.com/questions/47973570/kubernetes-log-user-systemserviceaccountdefaultdefault-cannot-get-services)、
+                [官方RBAC Authorization文档](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+                ```bash
+                # 创建一个role.yaml文件, 将以下内容写入文件
+                    kind: ClusterRole
+                    apiVersion: rbac.authorization.k8s.io/v1
+                    metadata:
+                      namespace: default
+                      name: service-reader
+                    rules:
+                    - apiGroups: [""] # "" indicates the core API group
+                      resources: ["services"]
+                      verbs: ["get", "watch", "list"]
+                # 启用该策略
+                  kubectl apply -f role.yaml
+                #  使用该cluster role创建一个clusterRoleBinding
+                     kubectl create clusterrolebinding service-reader-pod \
+                        --clusterrole=service-reader  \
+                        --serviceaccount=default:default
+                # 创建的clusterRoleBinding类似于    
+                    apiVersion: rbac.authorization.k8s.io/v1
+                    # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
+                    kind: ClusterRoleBinding
+                    metadata:
+                      name: read-service-global
+                    subjects:
+                    - kind: Group
+                      name: manager # Name is case sensitive
+                      apiGroup: rbac.authorization.k8s.io
+                    roleRef:
+                      kind: ClusterRole
+                      name: service-reader
+                      apiGroup: rbac.authorization.k8s.io
+                ```
+                - Helm权限配置, [参考](http://www.libaibai.net/node/357)
+                ```bash
+                 kubectl create serviceaccount --namespace kube-system tiller
+                 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+                 kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+                ```
+- 部署Consul-aware application
 
 
 

@@ -45,4 +45,8 @@ kubeadm token create
 kubectl drain ubuntu-node-1 --delete-local-data --ignore-daemonsets
 kubectl delete node ubuntu-node-1
 kubect get nodes
+
+# 删除所有已退出的docker容器    谨慎使用
+docker rm `docker ps -a|grep Exited|awk '{print $1}'`
+
 ```
