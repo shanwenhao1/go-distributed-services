@@ -92,8 +92,10 @@ pending状态, 还未找到原因
 
 ### 前言
 
-官方部署是通过kubernetes `Minikube`部署, [文档](https://learn.hashicorp.com/consul/getting-started-k8s/minikube).
-我们这里使用本地搭建的[kubernetes集群](../../doc/kubernets.md)进行搭建consul集群学习.
+- 无kubernetes集群:
+    官方部署是通过kubernetes `Minikube`部署, [文档](https://learn.hashicorp.com/consul/getting-started-k8s/minikube).
+    我们这里使用本地搭建的[kubernetes集群](../../doc/kubernets.md)进行搭建consul集群学习.
+- 有kubernetes集群: [官方示例](https://learn.hashicorp.com/consul/getting-started-k8s/helm-deploy)
 
 ### 部署
 

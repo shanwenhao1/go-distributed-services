@@ -9,9 +9,9 @@
             - [初步了解](#初步了解)
             - [晋升使用](#晋升使用)
         - [基础教程-consul cluster](#基础教程-consul-cluster)
-        - [Health Check](#Health Check)
-        - [KV Data](#KV Data)
-        - [Web UI](#Web UI)
+        - [Health Check](#Health-Check)
+        - [KV Data](#KV-Data)
+        - [Web UI](#Web-UI)
     - [Kubernetes部署](#Kubernetes部署)
 
 [consul](https://github.com/hashicorp/consul)主要能实现三种服务:
