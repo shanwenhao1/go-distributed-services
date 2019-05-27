@@ -26,6 +26,17 @@
     - `Horizontal Pod`Autoscaler(HPA): Pod横向扩容, 用来智能化动态管理分配CPU资源等
     - `Service`: K8s中的service是微服务架构中的一个"微服务", 它定义了一个服务的访问入口地址. 前端应用(Pod)通过该入口
     地址访问其背后一组由Pod副本组成的集群实例. Service与后端Pod副本集群通过Label Selector实现"无缝对接"
+        - service一旦创建, k8s会自动为其创建一个可用的Cluster IP(是虚拟IP, 只能结合Service Port组成一个具体的通信端口),
+        属于K8s集群内部的地址.
+        - 外部系统访问service
+            - 有三种IP:
+                - Node IP: Node节点的IP地址
+                - Pod IP: Pod的IP地址
+                - Cluster IP: Service的IP地址
+            - 使用NodePort为需要外部访问的Service开启对应的TCP监听端口, 外部可使用Node的 IP地址 + 具体的NodePort
+            即可访问此服务.
+    - `Namespace`:  通过将集群内部资源的资源对象"分配"到不同的Namespace形成逻辑上的分组. 如果不特别致命Namespace, 
+    K8s默认将用户创建的Pod、service等放入`default`的Namespace中.
         
      
      
