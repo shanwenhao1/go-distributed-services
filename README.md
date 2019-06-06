@@ -43,7 +43,6 @@ Consumer.
 - [ProtoActor](doc/proto%20actor.md)
 - [consul](doc/consul/consul.md): 分布式集群服务发现工具
 - [Kubernetes](doc/kubernets.md): docker集群部署管理工具
-    - [docker环境](doc)
 
 框架使用
 - [gOrm](http://gorm.book.jasperxu.com/)

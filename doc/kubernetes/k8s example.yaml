@@ -1,0 +1,97 @@
+# 大小写敏感
+# 使用缩进代表层级关系
+# 缩进时只允许使用空格, 缩进空格数目不重要, 只要相同层级的元素左侧对齐即可
+#
+apiVersion: apps/v1beta1                     # 指定api版本, 此值必须在kubectl apiversion中
+kind: StatefulSet                             # 资源对象的类型
+metadata:
+  name: "my-stateful-app"                  # 资源对象名称, 全局唯一. TODO: repliace it with your app name
+# spec是资源相关属性定义
+spec:
+  serviceName: "my-service"               # service名称
+  replicas: 2                               # Pod副本数量
+  template:                                 # 根据此模板创建Pod副本
+    metadata:
+      name: "my-stateful-app"
+      labels:                               # Pod副本拥有的标签
+        app: my-stateful-app
+    spec:
+      # Pod内容器的定义部分
+      containers:
+      - name: nginx                         # 容器的名称
+        image: nginx:1.7.9                  # 容器对应的Docker image. TODO: replace it with your exactly <image_name:tags>
+        ports:                              # 容器暴露的端口: containerPort(容器对外开放的端口)
+        - containerPort: 80
+          # Pod内容器健康检查的设置
+        livenessProbe:
+          #          exec:
+          #            command:
+          #            - sh
+          #            - -c
+          #            - "mysqladmin ping -u root -p${MYSQL_ROOT_PASSWORD}"
+          #
+          #          tcpSocket:
+          #            port: 8080
+          httpGet:                          # 通过httpGet检查健康, 返回200-399之间, 则认为容器正常
+            path: /                         # URL地址
+            port: 80
+            # host: 127.0.0.1  主机地址
+          initialDelaySeconds: 30         # 表明第一次检测在容器启动后多长时间后开始
+          timeoutSeconds: 5                # 检测的超时时间
+          periodSeconds: 5                 # 检查间隔时间
+          # readinessProbe类似于livenessProble, 只不过它针对的是应用程序暂时无法对外部流量提供服务.
+          # (比如应用程序在启动期间加载大量数据和配置文件, 这时Pod容器可报告自己还未准备好,
+          # 不能处理kubernetes服务发送过来的流量)
+        readinessProbe:
+          #          exec:
+          #            command:
+          #            - sh
+          #            - -c
+          #            - "mysqladmin ping -u root -p${MYSQL_ROOT_PASSWORD}"
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 5
+        # specify user/password from existing secret
+        # 指定容器中的环境变量
+        env:
+        - name: SECRET_USERNAME              # 变量的名字
+          valueFrom:
+            secretKeyRef:
+              name: test-secret
+              key: username
+        - name: SECRET_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: test-secret
+              key: password
+        # Define the environment variable for configmap
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+              name: aliyun-config
+              # Specify the key associated with the value
+              key: special.env
+        # configMap volume
+        volumeMounts:                      # 挂载持久存储卷
+        - name: config-volume               # 挂载设备的名字. 与volumes[*].name需要对应
+          mountPath: /etc/config           # 挂载到容器的某个路径下
+        - name: datadir
+          mountPath: /usr/share/nginx/html
+      volumes:                             # 定义一组挂载设备
+      - name: config-volume                # 定义一个挂载设备的名字
+        configMap:
+          name: aliyun-config
+  # 表示一类PVC模板, 系统会根据Statefulset配置的replicas数量, 创建相应数量的VPC(除名字外其他啊配置都一样)
+  volumeClaimTemplates:
+  - metadata:
+      name: datadir
+    spec:
+      accessModes:
+      - "ReadWriteMany"
+      resources:
+        requests:
+          storage: "1Gi"

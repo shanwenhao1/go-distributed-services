@@ -67,6 +67,17 @@ kubectl expose rc rcName
 - SessionAffinity: 基于客户端IP进行会话保持的模式, 即第一次将某个客户端发起的请求转发至后端的某个Pod上, 之后相同客户
 端请求都发至相同的Pod上. 将service.spec.sessionAffinity设置为"ClientIP"可启用
 
-### 外网访问
-### DNS服务的搭建
+### 集群外部访问Pod或Service
+- 将Pod端口号映射到物理机
+    - 通过设置容器级别的hostPort, 可将容器应用的端口号映射到物理机上.
+    - 或者设置Pod级别的hostNetwork=true, 将Pod中所有容器的端口号直接映射到物理机上.(默认hostPort等于containerPort, 
+    如果指定了hostPort, 则hostPort必须等于containerPort的值)
+- 将Service的端口号映射到物理机
+    - 通过设置nodePort映射到物理机, 同时设置Service的类型为NodePort
+    - 通过设置LoadBalancer映射到云服务商提供的LoadBalancer地址. 这种用法仅用于在公有云服务提供商的云平台上
+    设置Service的场景.
+
+### DNS服务搭建
+k8s提供的虚拟DNS服务名为skydns, 由一个RC和一个Service的定义组成. 详情P167
+
 ### Ingress 7层路由
