@@ -22,8 +22,8 @@
 ## 准备
 系统要求
 - ubuntu16.04+
-- 2GB+ RAM
-- 2 CPU or more
+- 2GB+ RAM per machine. Any less leaves little room for your apps.(can low than that)
+- 2 CPU or more or more on the control-plane node
 - Full network connectivity between all machines in the cluster (public or private network is fine)
 - Unique hostname, MAC address, and product_uuid for every node.
     ```bash

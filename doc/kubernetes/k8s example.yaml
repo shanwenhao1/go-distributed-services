@@ -1,7 +1,7 @@
 # 大小写敏感
 # 使用缩进代表层级关系
 # 缩进时只允许使用空格, 缩进空格数目不重要, 只要相同层级的元素左侧对齐即可
-#
+# 两种结构: Lists和Maps
 apiVersion: apps/v1beta1                     # 指定api版本, 此值必须在kubectl apiversion中
 kind: StatefulSet                             # 资源对象的类型
 metadata:

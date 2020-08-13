@@ -69,3 +69,7 @@ Consumer.
 - [Proto Actor模型框架](doc/proto%20actor.md): 注意ProtoActor还未发布release版本
     - protoactor分布式集群依赖[consul](doc/consul/consul.md)服务
 - [skynete-archive](https://github.com/skynetservices/skynet-archive): go的分布式框架
+
+
+## Other Project(no connection with this project)
+- [zimg](doc/ohter%20project/zimg.md)
