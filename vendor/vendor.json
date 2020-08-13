@@ -15,6 +15,36 @@
 			"revisionTime": "2016-11-27T09:19:28Z"
 		},
 		{
+			"checksumSHA1": "tzQJQ5aILqVYADcTHWvgoGS2fIs=",
+			"path": "github.com/AsynkronIT/protoactor-go",
+			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
+			"revisionTime": "2019-04-17T20:45:26Z"
+		},
+		{
+			"checksumSHA1": "tejWjZKUFJdFx0XNQ7D3vrevTxk=",
+			"path": "github.com/AsynkronIT/protoactor-go/actor",
+			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
+			"revisionTime": "2019-04-17T20:45:26Z"
+		},
+		{
+			"checksumSHA1": "BTlZXlJvXcKr13RQm3X5AKBrXVA=",
+			"path": "github.com/AsynkronIT/protoactor-go/cluster",
+			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
+			"revisionTime": "2019-04-17T20:45:26Z"
+		},
+		{
+			"checksumSHA1": "/mMv0W8ZcEWygs23xAiTean8aWA=",
+			"path": "github.com/AsynkronIT/protoactor-go/cluster/consul",
+			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
+			"revisionTime": "2019-04-17T20:45:26Z"
+		},
+		{
+			"checksumSHA1": "eHklBZeIi8YPfwFgtJob6uTJjL0=",
+			"path": "github.com/AsynkronIT/protoactor-go/remote",
+			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
+			"revisionTime": "2019-04-17T20:45:26Z"
+		},
+		{
 			"checksumSHA1": "IvVw9r5Sjnsxvgv0ekjcEQ71+zo=",
 			"path": "github.com/alecthomas/log4go",
 			"revision": "d146e6b86faab5f7e4d135cc63b749d74bf0d4a6",
