@@ -3,52 +3,22 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "0Hs4LhakP9XchfZY7b1G3q3uvvQ=",
-			"path": "github.com/AsynkronIT/goconsole",
-			"revision": "bfa12eebf7161a928e20d11a627cc689e99e2e50",
-			"revisionTime": "2016-05-04T19:26:49Z"
-		},
-		{
-			"checksumSHA1": "B/Mbbn2Ku3uNG64YMxiCuF8LWb4=",
-			"path": "github.com/AsynkronIT/gonet",
-			"revision": "0553637be2257d123c1c1877d1f3bbd23adce41d",
-			"revisionTime": "2016-11-27T09:19:28Z"
-		},
-		{
-			"checksumSHA1": "tzQJQ5aILqVYADcTHWvgoGS2fIs=",
-			"path": "github.com/AsynkronIT/protoactor-go",
-			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
-			"revisionTime": "2019-04-17T20:45:26Z"
-		},
-		{
-			"checksumSHA1": "tejWjZKUFJdFx0XNQ7D3vrevTxk=",
-			"path": "github.com/AsynkronIT/protoactor-go/actor",
-			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
-			"revisionTime": "2019-04-17T20:45:26Z"
-		},
-		{
-			"checksumSHA1": "BTlZXlJvXcKr13RQm3X5AKBrXVA=",
-			"path": "github.com/AsynkronIT/protoactor-go/cluster",
-			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
-			"revisionTime": "2019-04-17T20:45:26Z"
-		},
-		{
-			"checksumSHA1": "/mMv0W8ZcEWygs23xAiTean8aWA=",
-			"path": "github.com/AsynkronIT/protoactor-go/cluster/consul",
-			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
-			"revisionTime": "2019-04-17T20:45:26Z"
-		},
-		{
-			"checksumSHA1": "eHklBZeIi8YPfwFgtJob6uTJjL0=",
-			"path": "github.com/AsynkronIT/protoactor-go/remote",
-			"revision": "5c660ca822a7300814048081e6dee5f22c135b7a",
-			"revisionTime": "2019-04-17T20:45:26Z"
+			"checksumSHA1": "ZdJN0o55dSNsYzvew9vUPcUNZdo=",
+			"path": "github.com/Workiva/go-datastructures/queue",
+			"revision": "0819bcaf26091e7c33585441f8961854c2400faa",
+			"revisionTime": "2020-03-09T14:29:06Z"
 		},
 		{
 			"checksumSHA1": "IvVw9r5Sjnsxvgv0ekjcEQ71+zo=",
 			"path": "github.com/alecthomas/log4go",
 			"revision": "d146e6b86faab5f7e4d135cc63b749d74bf0d4a6",
 			"revisionTime": "2018-01-09T08:25:32Z"
+		},
+		{
+			"checksumSHA1": "evoxT39136+RKkItS5YrUQ2uj6I=",
+			"path": "github.com/emirpasic/gods/stacks/linkedliststack",
+			"revision": "79df803e554cab06f835fb729064282b2fd4cc99",
+			"revisionTime": "2020-11-18T13:23:43Z"
 		},
 		{
 			"checksumSHA1": "pIXgdA8iZn/fIKIxTAoFoZZu/TA=",
@@ -69,6 +39,12 @@
 			"revisionTime": "2019-04-10T03:04:54Z"
 		},
 		{
+			"checksumSHA1": "rdGVqaVTJyJ44VoQmsNndyvWcKk=",
+			"path": "github.com/gogo/protobuf/proto",
+			"revision": "b03c65ea87cdc3521ede29f62fe3ce239267c1bc",
+			"revisionTime": "2021-01-10T08:01:47Z"
+		},
+		{
 			"checksumSHA1": "9n8ZNcc5jWeDKTVod/jUb/evi5c=",
 			"path": "github.com/hashicorp/consul",
 			"revision": "ffc5c335508e28ee4319eee17f6c2b03c043f4ee",
@@ -79,6 +55,18 @@
 			"path": "github.com/jinzhu/gorm",
 			"revision": "7bc35615034c1d6994088c2cc925086fba6f565e",
 			"revisionTime": "2019-04-14T13:11:29Z"
+		},
+		{
+			"checksumSHA1": "qVSKDlROYfX14KBztCG4nZ1f6ok=",
+			"path": "github.com/jinzhu/inflection",
+			"revision": "b5281034e75ed100658f8d9d0b2837f3fad4e8b3",
+			"revisionTime": "2021-01-11T02:29:12Z"
+		},
+		{
+			"checksumSHA1": "0F53UotuFjLI0y8OS77akug+ycw=",
+			"path": "github.com/orcaman/concurrent-map",
+			"revision": "16402b402231a87365d47c5206569b9b476ae932",
+			"revisionTime": "2021-01-06T12:15:28Z"
 		},
 		{
 			"checksumSHA1": "3JBPxvZn52LORHX9F382xpkt1sA=",

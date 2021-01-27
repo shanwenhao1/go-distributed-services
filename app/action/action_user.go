@@ -23,7 +23,7 @@ func (this UserJsonModel) Register(c *gin.Context) {
 		jsonModel := *rjm.(*model.RequestJsonModel)
 		// 使用actor消息驱动
 		props := actor.PropsFromProducer(func() actor.Actor { return &service.UserActor{} })
-		actContext := actor.EmptyRootContext
+		actContext := actor.RootContext{}
 		pid := actContext.Spawn(props)
 		handle := service.UserHandle{
 			ReqJson:      jsonModel,
@@ -47,7 +47,7 @@ func (this UserJsonModel) Login(c *gin.Context) {
 		jsonModel := *rjm.(*model.RequestJsonModel)
 		// 使用actor消息驱动
 		props := actor.PropsFromProducer(func() actor.Actor { return &service.UserActor{} })
-		actContext := actor.EmptyRootContext
+		actContext := actor.RootContext{}
 		pid := actContext.Spawn(props)
 		handle := service.UserHandle{
 			ReqJson:      jsonModel,
