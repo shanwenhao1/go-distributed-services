@@ -1,5 +1,0 @@
-[TestServer][2019/04/30 18:21:46 CST][INFO]: [Init Server]: 日志框架初始化完成
-[TestServer][2019/04/30 18:21:47 CST][INFO]: [Init Server]: 数据源已初始化完成[最大打开连接数:2000,最大空闲连接数:200]
-[TestServer][2019/04/30 18:21:47 CST][INFO]: [Init Server]: 运行环境初始化完成[处理器核心数:4]
-[TestServer][2019/04/30 18:21:47 CST][INFO]: [Init Server]: http网络框架初始化完成[127.0.0.1:8080][production]
-[TestServer][2021/01/27 15:55:57 CST][INFO]: [Init Server]: 日志框架初始化完成

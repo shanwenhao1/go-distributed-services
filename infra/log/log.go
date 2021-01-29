@@ -7,7 +7,7 @@ package log
 
 import (
 	"fmt"
-	"github.com/alecthomas/log4go"
+	"github.com/shanwenhao1/log4go"
 	"strings"
 )
 

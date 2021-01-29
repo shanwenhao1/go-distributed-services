@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-distributed-services/infra/log"
+	"os"
 	"strings"
 )
 
@@ -24,6 +25,19 @@ func Init() {
 	gin.SetMode(gin.ReleaseMode)
 	//router := gin.Default()
 	router := gin.New()
+	// 启用gin 日志
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+
+	// 设置为线上模式
+	gin.SetMode(gin.ReleaseMode)
+	// 设置gin日志为文件输出至gin.log
+	file, err := os.Create("gin.log")
+	if err != nil {
+		log.LogWithTag(log.ERROR, log.InitSer, "创建gin日志文件失败")
+	}
+	gin.DefaultWriter = file
+
 	// 路由注册
 	Router(handlerMap)
 	log.LogWithTag(log.INFO, log.InitSer, "http网络框架初始化完成[%s][%s]", ConfigDataS.MPort, ConfigDataS.MEnv)

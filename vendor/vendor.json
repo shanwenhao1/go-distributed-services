@@ -73,6 +73,12 @@
 			"path": "github.com/satori/go.uuid",
 			"revision": "b2ce2384e17bbe0c6d34077efa39dbab3e09123b",
 			"revisionTime": "2018-10-28T12:50:25Z"
+		},
+		{
+			"checksumSHA1": "fwbljCWem9L0BWZlsKeo4Ha5VG4=",
+			"path": "github.com/shanwenhao1/log4go",
+			"revision": "00b7fd3ca495615e2c37cb95eaf053fd072a7521",
+			"revisionTime": "2019-08-20T16:01:10Z"
 		}
 	],
 	"rootPath": "go-distributed-services"
